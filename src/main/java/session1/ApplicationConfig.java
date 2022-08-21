@@ -1,8 +1,10 @@
 package session1;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 import java.util.Date;
 
@@ -12,6 +14,7 @@ import java.util.Date;
 public class ApplicationConfig {
 
     @Bean
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public Date getDate() {
         return new Date();
     }
