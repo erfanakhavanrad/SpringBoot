@@ -7,5 +7,26 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
     <context:annotation-config/>
-    <context:component-scan base-package="session1"/>
+    <context:component-scan base-package="session2"/>
+
+
+    <!--    <bean id="notifier" class="session2.SmsNotifier"/>-->
+    <!--  Factory Method  -->
+    <!--    <bean id="notifier" class="session2.NotifierFactory"-->
+    <!--          factory-method="getNotifier"/>-->
+
+    <!--Factory Bean-->
+    <bean id="notifierFactory" class="session2.NotifierFactory"/>
+    <bean id="notifier" factory-bean="notifierFactory" factory-method="getNotifier"/>
+
+    <!--    <bean id="notifier" class="session2.EmailNotifier"/>-->
+    <bean id="notificationService" class="session2.NotificationService">
+        <!--   Setter Injection-->
+        <!--                <property name="notifier" ref="notifier"/>-->
+        <!--   Constructor Injection-->
+        <!--        <constructor-arg ref="notifier"/>-->
+        <!--    Method Injection-->
+        <lookup-method name="getNotifier" bean="notifier"/>
+    </bean>
+
 </beans>

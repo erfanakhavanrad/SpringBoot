@@ -9,7 +9,7 @@ import java.util.Date;
 public class MainClass {
     // Old version using XML files.
     public static void oldMain(String[] args) {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("/applicationContext.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("/session1/applicationContext.xml");
         Processor processor = applicationContext.getBean(Processor.class);
         processor.process("Spring course ");
     }

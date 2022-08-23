@@ -2,12 +2,11 @@ package session1;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
-@PropertySource("classpath:/config.properties")
+@PropertySource("classpath:/session1/config.properties")
 public class InstituteFactoryBean implements FactoryBean<InstituteDescription> {
 
     @Value("${name}")
