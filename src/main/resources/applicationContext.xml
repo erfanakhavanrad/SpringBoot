@@ -8,7 +8,7 @@
     http://www.springframework.org/schema/context/spring-context.xsd">
     <context:annotation-config/>
     <context:component-scan base-package="session2"/>
-
+    <import resource="applicationContext-extra.xml"/>
 
     <!--    <bean id="notifier" class="session2.SmsNotifier"/>-->
     <!--  Factory Method  -->
@@ -17,16 +17,25 @@
 
     <!--Factory Bean-->
     <bean id="notifierFactory" class="session2.NotifierFactory"/>
-    <bean id="notifier" factory-bean="notifierFactory" factory-method="getNotifier"/>
+    <bean id="notifier" factory-bean="notifierFactory" factory-method="getNotifier" depends-on="notifierFactory">
+        <qualifier value="basicNotifier"/>
+    </bean>
+    <bean id="advancedModifier" class="session2.SmsNotifier">
+        <qualifier value="advancedNotifier"/>
+    </bean>
 
     <!--    <bean id="notifier" class="session2.EmailNotifier"/>-->
-    <bean id="notificationService" class="session2.NotificationService">
+    <bean id="notificationService" class="session2.NotificationService" init-method="init" destroy-method="destroy">
         <!--   Setter Injection-->
         <!--                <property name="notifier" ref="notifier"/>-->
         <!--   Constructor Injection-->
         <!--        <constructor-arg ref="notifier"/>-->
         <!--    Method Injection-->
         <lookup-method name="getNotifier" bean="notifier"/>
+        <!--    Import from XML    -->
+        <property name="subject" value="${subject}"/>
+        <property name="advancedNotifier" ref="advancedModifier"/>
     </bean>
-
+    <context:property-placeholder location="classpath:/Config.properties"/>
+    <bean id="beanPostProcessor" class="session2.BeanCreationLogger"/>
 </beans>

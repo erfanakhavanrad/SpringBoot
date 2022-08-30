@@ -7,7 +7,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class MainClass {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("/applicationContext.xml");
-        NotificationService notificationService = applicationContext.getBean(NotificationService.class);
-        notificationService.notify("Hello! Session 2");
+//        NotificationService notificationService = applicationContext.getBean(NotificationService.class);
+//        notificationService.notify("Hello! Session 2");
+        Calculater calculater = applicationContext.getBean(Calculater.class);
+        calculater.sqrt(-12);
+
     }
 }
